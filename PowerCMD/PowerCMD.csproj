@@ -5,10 +5,24 @@
 		<RootNamespace>PowerCMD</RootNamespace>
 		<Authors>Thev2Andy</Authors>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/Thev2Andy/PowerCMD</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Thev2Andy/PowerCMD</RepositoryUrl>
+		<PackageTags>CLI, Power, Sharp, CSharp, C#, Modular, Library, Lib, Lightweight, Command, CMD, CommandExecution, CommandEngine, CommandExecutor, Power</PackageTags>
+		<PackageIcon>PowerCMD Icon.png</PackageIcon>
+		<PackageIconUrl />
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>..\PowerCMD\PowerCMD\XML Docs\PowerCMD XML.xml</DocumentationFile>
   </PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="Resources\Icon\PowerCMD Icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>

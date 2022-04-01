@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PowerCMD")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PowerCMD is a command execution library that can be used as a base for developer consoles, or even programming languages.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Thev2Andy")]
 [assembly: AssemblyProduct("PowerCMD")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
