@@ -25,7 +25,6 @@ namespace CMD_Tester
             CommandRegistry.RegisterCommand("add", new Func<int>(Add).Method);
             CommandRegistry.RegisterCommand("getinput", new Func<string>(GetInput).Method);
             CommandRegistry.RegisterCommand("dummy", new Action<string, string>(DummyAction).Method);
-            CommandRegistry.RegisterCommand("wait", new Func<string, Task>(CommandDefinition.Wait).Method);
 
             CMDInput:
             Console.Write("> ");
