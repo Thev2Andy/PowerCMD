@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace>PowerCMD</RootNamespace>
+		<Authors>Thev2Andy</Authors>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>..\PowerCMD\PowerCMD\XML Docs\PowerCMD XML.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
