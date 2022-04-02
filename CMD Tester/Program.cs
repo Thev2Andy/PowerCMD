@@ -27,6 +27,8 @@ namespace CMD_Tester
             CommandRegistry.RegisterCommand("dummy", new Action<string, string>(DummyAction).Method);
             CommandRegistry.RegisterCommand("exception", new Action(ExceptionF).Method);
 
+            CommandRegistry.IsCommandRegistered("echo").Execute("h", "o");
+
             CMDInput:
             Console.Write("> ");
             CommandParser.ParseCommand(Console.ReadLine());

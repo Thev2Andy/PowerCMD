@@ -28,10 +28,20 @@ namespace PowerCMD
             }
 
             catch (Exception Ex) {
-                CommandOutput.Output("An exception occured in the called function..", CommandOutputType.Error);
-                CommandOutput.Output(Ex.Message, CommandOutputType.Error);
-                CommandOutput.Output(Ex.InnerException?.Message, CommandOutputType.Error);
-                return new CommandReturn(CommandResult.Fail);
+                if (Ex.InnerException != null) {
+                    CommandOutput.Output("An exception occured in the called function..", CommandOutputType.Error);
+                    CommandOutput.Output(Ex.Message, CommandOutputType.Error);
+                    CommandOutput.Output(Ex.InnerException.Message, CommandOutputType.Error);
+                    return new CommandReturn(CommandResult.Fail);
+                }
+
+                else {
+                    // Handle invalid input handling in the method parameters..
+                    string ErrorMessage = Ex.Message;
+                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {CommandRegistry.IsCommandRegistered(Identifier)?.LogicParameters.Length} parameter{((CommandRegistry.IsCommandRegistered(Identifier)?.LogicParameters.Length != 1) ? "s" : "")}." : "");
+                    CommandOutput.Output(ErrorMessage, CommandOutputType.Error);
+                    return new CommandReturn(CommandResult.Fail);
+                }
             }
 
 

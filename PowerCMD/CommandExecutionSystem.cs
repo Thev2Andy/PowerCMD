@@ -10,19 +10,13 @@ namespace PowerCMD
     {
         public static CommandReturn ExecuteCommand(string Identifier, params object[] Parameters)
         {
-            if (CommandRegistry.IsCommandRegistered(Identifier) != null)
-            {
-                try {
-                    CommandReturn CommandReturn = (CommandReturn)(CommandRegistry.IsCommandRegistered(Identifier)?.Execute(Parameters));
-                    return CommandReturn;
-                }catch (Exception Ex) {
-                    // Handle invalid input handling..
-                    string ErrorMessage = Ex.Message;
-                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {CommandRegistry.IsCommandRegistered(Identifier)?.LogicParameters.Length} parameter{((CommandRegistry.IsCommandRegistered(Identifier)?.LogicParameters.Length != 1) ? "s" : "")}." : "");
-                    CommandOutput.Output(ErrorMessage, CommandOutputType.Error);
-                    return new CommandReturn(CommandResult.Fail);
-                }
-            }else {
+            if (CommandRegistry.IsCommandRegistered(Identifier) != null) {
+                CommandReturn CommandReturn = (CommandReturn)(CommandRegistry.IsCommandRegistered(Identifier)?.Execute(Parameters));
+                return CommandReturn;
+
+            }
+        
+            else {
                 CommandOutput.Output($"Command '{Identifier}' not found.", CommandOutputType.Error);
                 return new CommandReturn(CommandResult.Fail);
             }
