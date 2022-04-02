@@ -22,7 +22,18 @@ namespace PowerCMD
         }
 
         public object Execute(params object[] Parameters) {
-            object CommandReturn = Logic.Invoke(null, Parameters);
+            object CommandReturn = null;
+            try {
+                CommandReturn = Logic.Invoke(null, Parameters);
+            }
+
+            catch (Exception Ex) {
+                CommandOutput.Output("An exception occured in the called function..", CommandOutputType.Error);
+                CommandOutput.Output(Ex.InnerException?.Message, CommandOutputType.Error);
+                return null;
+            }
+
+
             if (OutputReturn && CommandReturn != null) {
                 CommandOutput.Output($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", CommandOutputType.Null);
             }

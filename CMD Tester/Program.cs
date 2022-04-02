@@ -25,6 +25,7 @@ namespace CMD_Tester
             CommandRegistry.RegisterCommand("add", new Func<int>(Add).Method);
             CommandRegistry.RegisterCommand("getinput", new Func<string>(GetInput).Method);
             CommandRegistry.RegisterCommand("dummy", new Action<string, string>(DummyAction).Method);
+            CommandRegistry.RegisterCommand("exception", new Action(ExceptionF).Method);
 
             CMDInput:
             Console.Write("> ");
@@ -44,6 +45,11 @@ namespace CMD_Tester
             // CommandExecutionSystem.ExecuteCommand("echo", "Hello and welcome to black mesa research facility.");
 
             // Console.ReadKey();
+        }
+
+        public static void ExceptionF()
+        {
+            throw new AccessViolationException();
         }
 
         public static void OnLog(object Sender, LogArgs LogArgs)
