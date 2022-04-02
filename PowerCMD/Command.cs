@@ -21,7 +21,7 @@ namespace PowerCMD
             this.OutputReturn = OutputReturn;
         }
 
-        public object Execute(params object[] Parameters) {
+        public CommandReturn Execute(params object[] Parameters) {
             object CommandReturn = null;
             try {
                 CommandReturn = Logic.Invoke(null, Parameters);
@@ -29,8 +29,9 @@ namespace PowerCMD
 
             catch (Exception Ex) {
                 CommandOutput.Output("An exception occured in the called function..", CommandOutputType.Error);
+                CommandOutput.Output(Ex.Message, CommandOutputType.Error);
                 CommandOutput.Output(Ex.InnerException?.Message, CommandOutputType.Error);
-                return null;
+                return new CommandReturn(CommandResult.Fail);
             }
 
 
@@ -38,7 +39,7 @@ namespace PowerCMD
                 CommandOutput.Output($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", CommandOutputType.Null);
             }
 
-            return CommandReturn;
+            return new CommandReturn(CommandResult.Success, CommandReturn);
         }
     }
 }

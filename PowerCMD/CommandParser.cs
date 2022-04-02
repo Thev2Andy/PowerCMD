@@ -21,7 +21,7 @@ namespace PowerCMD
             Initialized = true;
         }
 
-        public static void ParseCommand(string Command)
+        public static CommandReturn ParseCommand(string Command)
         {
             List<string> SplitCommand = Command.Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries).
                 ToList<string>();
@@ -44,7 +44,7 @@ namespace PowerCMD
                 }
             });
 
-            CommandExecutionSystem.ExecuteCommand(CommandString, GroupedParameterList.ToArray());
+            return CommandExecutionSystem.ExecuteCommand(CommandString, GroupedParameterList.ToArray());
         }
     }
 }
