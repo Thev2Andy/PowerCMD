@@ -38,7 +38,12 @@ namespace PowerCMD
                 ToList().
                 ConvertAll(S => (object)S);
 
-            GroupedParameterList.ForEach((S) => { S = S.ToString().Replace($"{Separator}{Separator}", String.Empty); });
+            GroupedParameterList.ForEach((S) => { 
+                if(S.ToString() == $"{Separator}{Separator}") {
+                    S = S.ToString().Replace($"{Separator}{Separator}", String.Empty);
+                }
+            });
+
             CommandExecutionSystem.ExecuteCommand(CommandString, GroupedParameterList.ToArray());
         }
     }
