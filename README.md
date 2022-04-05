@@ -25,5 +25,5 @@ Command CMDInstance = CommandRegistry.IsCommandRegistered("CMD");
 CMDInstance.Execute("Hello!");
 ```
 
-* Simple, Documented API.
+* Simple, ~~Documented~~ (not yet) API.
 * Designed with modularity in mind.
