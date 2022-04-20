@@ -9,10 +9,10 @@ namespace PowerCMD
 {
     public class Command
     {
-        public readonly string Identifier;
-        public readonly MethodInfo Logic;
-        public readonly ParameterInfo[] LogicParameters;
-        public readonly bool OutputReturn;
+        public string Identifier { get; private set; }
+        public MethodInfo Logic { get; private set; }
+        public ParameterInfo[] LogicParameters { get; private set; }
+        public bool OutputReturn { get; private set; }
 
         public Command(string Identifier, MethodInfo Logic, bool OutputReturn) {
             this.Identifier = Identifier;
@@ -21,7 +21,7 @@ namespace PowerCMD
             this.OutputReturn = OutputReturn;
         }
 
-        public CommandReturn Execute(params object[] Parameters) {
+        public Return Execute(params object[] Parameters) {
             object CommandReturn = null;
             try {
                 CommandReturn = Logic.Invoke(null, Parameters);
@@ -29,27 +29,27 @@ namespace PowerCMD
 
             catch (Exception Ex) {
                 if (Ex.InnerException != null) {
-                    CommandOutput.Output("An exception occured in the called function..", CommandOutputType.Error);
-                    CommandOutput.Output(Ex.Message, CommandOutputType.Error);
-                    CommandOutput.Output(Ex.InnerException.Message, CommandOutputType.Error);
-                    return new CommandReturn(CommandResult.Fail);
+                    Output.Write("An exception occured in the called function..", OutputType.Error);
+                    Output.Write(Ex.Message, OutputType.Error);
+                    Output.Write(Ex.InnerException.Message, OutputType.Error);
+                    return new Return(Result.Fail);
                 }
 
                 else {
                     // Handle invalid input handling in the method parameters..
                     string ErrorMessage = Ex.Message;
-                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {CommandRegistry.IsCommandRegistered(Identifier)?.LogicParameters.Length} parameter{((CommandRegistry.IsCommandRegistered(Identifier)?.LogicParameters.Length != 1) ? "s" : "")}." : "");
-                    CommandOutput.Output(ErrorMessage, CommandOutputType.Error);
-                    return new CommandReturn(CommandResult.Fail);
+                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {Registry.IsRegistered(Identifier)?.LogicParameters.Length} parameter{((Registry.IsRegistered(Identifier)?.LogicParameters.Length != 1) ? "s" : "")}." : "");
+                    Output.Write(ErrorMessage, OutputType.Error);
+                    return new Return(Result.Fail);
                 }
             }
 
 
             if (OutputReturn && CommandReturn != null) {
-                CommandOutput.Output($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", CommandOutputType.Null);
+                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", OutputType.Null);
             }
 
-            return new CommandReturn(CommandResult.Success, CommandReturn);
+            return new Return(Result.Success, CommandReturn);
         }
     }
 }

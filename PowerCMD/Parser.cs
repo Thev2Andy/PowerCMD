@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public static class CommandParser
+    public static class Parser
     {
-        public static string ParameterGrouper { get; private set; }
         public static string Separator { get; private set; }
-
+        public static string Grouper { get; private set; }
 
         public static bool Initialized { get; private set; }
 
-        public static void InitializeParser(string CMDParameterGrouper = "`", string CMDSeparator = " ")
+
+        public static void Initialize(string ParameterGrouper = "`", string Separator = " ")
         {
-            ParameterGrouper = CMDParameterGrouper;
-            Separator = CMDSeparator;
+            Parser.Separator = Separator;
+            Grouper = ParameterGrouper;
             Initialized = true;
         }
 
-        public static CommandReturn ParseCommand(string Command)
+        public static Return Parse(string Command)
         {
             List<string> SplitCommand = Command.Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries).
                 ToList<string>();
@@ -32,7 +32,7 @@ namespace PowerCMD
             string ParametersToParse = string.Join(Separator, SplitCommand.ToArray());
 
             List<object> GroupedParameterList = new List<object>();
-            GroupedParameterList = ParametersToParse.Split(ParameterGrouper).
+            GroupedParameterList = ParametersToParse.Split(Grouper).
                 Select((Element, Index) => ((Index % 2 == 0) ? Element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { Element })).
                 SelectMany(Element => Element).
                 ToList().
@@ -44,7 +44,7 @@ namespace PowerCMD
                 }
             });
 
-            return CommandExecutionSystem.ExecuteCommand(CommandString, GroupedParameterList.ToArray());
+            return ExecutionSystem.Execute(CommandString, GroupedParameterList.ToArray());
         }
     }
 }

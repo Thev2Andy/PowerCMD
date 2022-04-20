@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public enum CommandResult
+    public class OutputArgs : EventArgs
     {
-        Success,
-        Fail
+        public string OutputMessage;
+        public OutputType OutputType;
     }
 }

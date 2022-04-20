@@ -4,7 +4,7 @@ using PowerCMD;
 using PowerLog;
 using System.Threading.Tasks;
 
-namespace CMD_Tester
+namespace CMDTester
 {
     class Program
     {
@@ -13,38 +13,38 @@ namespace CMD_Tester
             LogSession.Initialize(false);
             Log.OnLog += OnLog;
 
-            CommandParser.InitializeParser();
+            Parser.Initialize();
 
-            CommandOutput.OnOutput += OnOutput;
+            Output.OnOutput += OnOutput;
 
-            CommandRegistry.RegisterCommand("help", new Action(Help).Method);
-            CommandRegistry.RegisterCommand("echo", new Action<string>(Echo).Method);
-            CommandRegistry.RegisterCommand("beep", new Action(Console.Beep).Method);
-            CommandRegistry.RegisterCommand("clear", new Action(Console.Clear).Method);
-            CommandRegistry.RegisterCommand("exit", new Action(Exit).Method);
-            CommandRegistry.RegisterCommand("add", new Func<int>(Add).Method);
-            CommandRegistry.RegisterCommand("getinput", new Func<string>(GetInput).Method);
-            CommandRegistry.RegisterCommand("dummy", new Action<string, string>(DummyAction).Method);
-            CommandRegistry.RegisterCommand("exception", new Action(ExceptionF).Method);
+            Registry.Register("help", new Action(Help).Method);
+            Registry.Register("echo", new Action<string>(Echo).Method);
+            Registry.Register("beep", new Action(Console.Beep).Method);
+            Registry.Register("clear", new Action(Console.Clear).Method);
+            Registry.Register("exit", new Action(Exit).Method);
+            Registry.Register("add", new Func<int>(Add).Method);
+            Registry.Register("getinput", new Func<string>(GetInput).Method);
+            Registry.Register("dummy", new Action<string, string>(DummyAction).Method);
+            Registry.Register("exception", new Action(ExceptionF).Method);
 
-            CommandRegistry.IsCommandRegistered("echo").Execute("h", "o");
+            Registry.IsRegistered("echo").Execute("h", "o");
 
             CMDInput:
             Console.Write("> ");
-            CommandParser.ParseCommand(Console.ReadLine());
+            Parser.Parse(Console.ReadLine());
             Console.WriteLine();
 
             goto CMDInput;
 
-            // CommandRegistry.IsCommandRegistered("echo", true);
+            // Registry.IsRegistered("echo", true);
 
-            // CommandParser.ParseCommand("help");
-            // CommandParser.ParseCommand("echo hello");
-            // CommandParser.ParseCommand("echo 'hello world'");
+            // Parser.Parse("help");
+            // Parser.Parse("echo hello");
+            // Parser.Parse("echo 'hello world'");
 
-            // CommandExecutionSystem.ExecuteCommand("help");
-            // CommandExecutionSystem.ExecuteCommand("echo", 3.ToString());
-            // CommandExecutionSystem.ExecuteCommand("echo", "Hello and welcome to black mesa research facility.");
+            // ExecutionSystem.Execute("help");
+            // ExecutionSystem.Execute("echo", 3.ToString());
+            // ExecutionSystem.Execute("echo", "Hello and welcome to black mesa research facility.");
 
             // Console.ReadKey();
         }
@@ -61,15 +61,15 @@ namespace CMD_Tester
                 $"{LogArgs.LogMessage}");
         }
 
-        public static void OnOutput(object Sender, CommandOutputArgs OutputArgs)
+        public static void OnOutput(object Sender, OutputArgs OutputArgs)
         {
-            LogType LogType = OutputArgs.CommandOutputType switch
+            LogType LogType = OutputArgs.OutputType switch
             {
-                CommandOutputType.Info => LogType.Info,
-                CommandOutputType.Warning => LogType.Warning,
-                CommandOutputType.Error => LogType.Error,
-                CommandOutputType.Network => LogType.Network,
-                CommandOutputType.Null => LogType.Null,
+                OutputType.Info => LogType.Info,
+                OutputType.Warning => LogType.Warning,
+                OutputType.Error => LogType.Error,
+                OutputType.Network => LogType.Network,
+                OutputType.Null => LogType.Null,
                 _ => LogType.Null,
             };
 
@@ -78,22 +78,22 @@ namespace CMD_Tester
 
         public static void DummyAction(string param, string param2)
         {
-            CommandOutput.Output($"{param} x{Convert.ToInt32(param2).ToString()}", CommandOutputType.Null);
+            Output.Write($"{param} x{Convert.ToInt32(param2).ToString()}", OutputType.Null);
         }
 
         public static void Help()
         {
-            CommandOutput.Output($"Available commands: ({CommandRegistry.RegisteredCommands.Count})", CommandOutputType.Null);
+            Output.Write($"Available commands: ({Registry.Entries.Count})", OutputType.Null);
 
-            for (int i = 0; i < CommandRegistry.RegisteredCommands.Count; i++)
+            for (int i = 0; i < Registry.Entries.Count; i++)
             {
-                CommandOutput.Output($"> {CommandRegistry.RegisteredCommands[i].Identifier}", CommandOutputType.Null);
+                Output.Write($"> {Registry.Entries[i].Identifier}", OutputType.Null);
             }
         }
 
         public static void Echo(string Message)
         {
-            CommandOutput.Output(Message, CommandOutputType.Null);
+            Output.Write(Message, OutputType.Null);
         }
 
         public static string GetInput()
@@ -108,7 +108,7 @@ namespace CMD_Tester
 
         public static int Add()
         {
-            CommandOutput.Output("Adding 3 + 4..", CommandOutputType.Null);
+            Output.Write("Adding 3 + 4..", OutputType.Null);
             return 3 + 4;
         }
     }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public struct CommandReturn
+    public struct Return
     {
-        public CommandResult Result { get; private set; }
+        public Result Result { get; private set; }
         public object ReturnObject { get; private set; }
 
-        public CommandReturn(CommandResult Result, object ReturnObject = null) {
+        public Return(Result Result, object ReturnObject = null) {
             this.ReturnObject = ReturnObject;
             this.Result = Result;
         }

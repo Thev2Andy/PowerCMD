@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public enum CommandOutputType
+    public enum Result
     {
-        Info,
-        Warning,
-        Error,
-        Network,
-        Null
+        Success,
+        Fail
     }
 }
