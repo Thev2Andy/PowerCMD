@@ -8,10 +8,13 @@ namespace PowerCMD
 {
     public enum OutputType
     {
+        Trace,
+        Debug,
         Info,
         Warning,
         Error,
         Network,
+        Fatal,
         Null
     }
 }
