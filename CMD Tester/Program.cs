@@ -69,7 +69,7 @@ namespace CMDTester
                 OutputType.Warning => LogType.Warning,
                 OutputType.Error => LogType.Error,
                 OutputType.Network => LogType.Network,
-                OutputType.Null => LogType.Null,
+                OutputType.NA => LogType.Null,
                 _ => LogType.Null,
             };
 
@@ -78,22 +78,22 @@ namespace CMDTester
 
         public static void DummyAction(string param, string param2)
         {
-            Output.Write($"{param} x{Convert.ToInt32(param2).ToString()}", OutputType.Null);
+            Output.Write($"{param} x{Convert.ToInt32(param2).ToString()}", OutputType.NA);
         }
 
         public static void Help()
         {
-            Output.Write($"Available commands: ({Registry.Entries.Count})", OutputType.Null);
+            Output.Write($"Available commands: ({Registry.Entries.Count})", OutputType.NA);
 
             for (int i = 0; i < Registry.Entries.Count; i++)
             {
-                Output.Write($"> {Registry.Entries[i].Identifier}", OutputType.Null);
+                Output.Write($"> {Registry.Entries[i].Identifier}", OutputType.NA);
             }
         }
 
         public static void Echo(string Message)
         {
-            Output.Write(Message, OutputType.Null);
+            Output.Write(Message, OutputType.NA);
         }
 
         public static string GetInput()
@@ -108,7 +108,7 @@ namespace CMDTester
 
         public static int Add()
         {
-            Output.Write("Adding 3 + 4..", OutputType.Null);
+            Output.Write("Adding 3 + 4..", OutputType.NA);
             return 3 + 4;
         }
     }

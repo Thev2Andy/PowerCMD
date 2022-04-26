@@ -29,7 +29,7 @@ namespace PowerCMD
             string CommandString = SplitCommand[0];
             SplitCommand.RemoveAt(0);
 
-            string ParametersToParse = string.Join(Separator, SplitCommand.ToArray());
+            string ParametersToParse = String.Join(Separator, SplitCommand.ToArray());
 
             List<object> GroupedParameterList = new List<object>();
             GroupedParameterList = ParametersToParse.Split(Grouper).

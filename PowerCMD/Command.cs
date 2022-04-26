@@ -46,7 +46,7 @@ namespace PowerCMD
 
 
             if (OutputReturn && CommandReturn != null) {
-                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", OutputType.Null);
+                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", OutputType.NA);
             }
 
             return new Return(Result.Success, CommandReturn);
