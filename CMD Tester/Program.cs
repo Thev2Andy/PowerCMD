@@ -8,12 +8,18 @@ namespace CMDTester
 {
     class Program
     {
+        public static ExecutionSystem ExecutionSystem;
+        public static Registry Registry;
+        public static Parser Parser;
+
         static void Main(string[] args)
         {
             LogSession.Initialize(false);
             Log.OnLog += OnLog;
 
-            Parser.Initialize();
+            Registry = new Registry();
+            ExecutionSystem = new ExecutionSystem(Registry);
+            Parser = new Parser();
 
             Output.OnOutput += OnOutput;
 
@@ -27,11 +33,9 @@ namespace CMDTester
             Registry.Register("dummy", new Action<string, string>(DummyAction).Method);
             Registry.Register("exception", new Action(ExceptionF).Method);
 
-            Registry.IsRegistered("echo").Execute("h", "o");
-
             CMDInput:
             Console.Write("> ");
-            Parser.Parse(Console.ReadLine());
+            Parser.Parse(Console.ReadLine(), ExecutionSystem);
             Console.WriteLine();
 
             goto CMDInput;

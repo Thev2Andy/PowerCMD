@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public class Command
+    [Serializable] public class Command
     {
         public string Identifier { get; private set; }
         public MethodInfo Logic { get; private set; }
@@ -17,8 +17,9 @@ namespace PowerCMD
         public Command(string Identifier, MethodInfo Logic, bool OutputReturn) {
             this.Identifier = Identifier;
             this.Logic = Logic;
-            this.LogicParameters = Logic.GetParameters();
             this.OutputReturn = OutputReturn;
+
+            this.LogicParameters = Logic.GetParameters();
         }
 
         public Return Execute(params object[] Parameters) {
@@ -29,7 +30,7 @@ namespace PowerCMD
 
             catch (Exception Ex) {
                 if (Ex.InnerException != null) {
-                    Output.Write("An exception occured in the called function..", OutputType.Error);
+                    Output.Write($"An exception occured in the called function.. ({Ex.InnerException.GetType()})", OutputType.Error);
                     Output.Write(Ex.Message, OutputType.Error);
                     Output.Write(Ex.InnerException.Message, OutputType.Error);
                     return new Return(Result.Fail);
@@ -38,7 +39,7 @@ namespace PowerCMD
                 else {
                     // Handle invalid input handling in the method parameters..
                     string ErrorMessage = Ex.Message;
-                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {Registry.IsRegistered(Identifier)?.LogicParameters.Length} parameter{((Registry.IsRegistered(Identifier)?.LogicParameters.Length != 1) ? "s" : "")}." : "");
+                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {LogicParameters.Length} parameter{((LogicParameters.Length != 1) ? "s" : "")}." : "");
                     Output.Write(ErrorMessage, OutputType.Error);
                     return new Return(Result.Fail);
                 }

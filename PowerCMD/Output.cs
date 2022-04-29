@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public static class Output
+    [Serializable] public static class Output
     {
         public static EventHandler<OutputArgs> OnOutput;
 

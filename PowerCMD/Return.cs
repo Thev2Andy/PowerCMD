@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public struct Return
+    [Serializable] public struct Return
     {
         public Result Result { get; private set; }
         public object ReturnObject { get; private set; }

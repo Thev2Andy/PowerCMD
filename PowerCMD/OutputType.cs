@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public enum OutputType
+    [Serializable] public enum OutputType
     {
         Trace,
         Debug,

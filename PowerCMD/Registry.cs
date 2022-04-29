@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public static class Registry
+    [Serializable] public class Registry
     {
-        public static List<Command> Entries = new List<Command>();
+        public List<Command> Entries = new List<Command>();
 
-        public static void Register(string CommandIdentifier, MethodInfo CommandLogic, bool OutputReturn = true)
+        public void Register(string CommandIdentifier, MethodInfo CommandLogic, bool OutputReturn = true)
         {
             // Replace whitespaces, to make commands easier to work with.
             CommandIdentifier.Replace(" ", String.Empty);
@@ -28,7 +28,7 @@ namespace PowerCMD
             Entries.Add(NewCommand);
         }
 
-        public static void Remove(string Identifier)
+        public void Remove(string Identifier)
         {
             // Replace whitespaces, to make commands easier to work with.
             Identifier.Replace(" ", String.Empty);
@@ -41,7 +41,7 @@ namespace PowerCMD
             }
         }
 
-        public static Command IsRegistered(string Identifier, bool LogCommandFound = false)
+        public Command IsRegistered(string Identifier, bool LogCommandFound = false)
         {
             for (int i = 0; i < Entries.Count; i++)
             {

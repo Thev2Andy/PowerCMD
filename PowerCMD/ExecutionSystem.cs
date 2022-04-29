@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public static class ExecutionSystem
+    [Serializable] public class ExecutionSystem
     {
-        public static Return Execute(string Identifier, params object[] Parameters)
+        public Registry Registry { get; private set; }
+
+        public Return Execute(string Identifier, params object[] Parameters)
         {
             if (Registry.IsRegistered(Identifier) != null) {
                 Return CommandReturn = (Return)(Registry.IsRegistered(Identifier)?.Execute(Parameters));
@@ -20,6 +22,10 @@ namespace PowerCMD
                 Output.Write($"Command '{Identifier}' not found.", OutputType.Error);
                 return new Return(Result.Fail);
             }
+        }
+
+        public ExecutionSystem(Registry Registry) {
+            this.Registry = Registry;
         }
     }
 }

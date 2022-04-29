@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    public static class Parser
+    [Serializable] public class Parser
     {
-        public static string Separator { get; private set; }
-        public static string Grouper { get; private set; }
+        public string Separator { get; private set; }
+        public string Grouper { get; private set; }
 
-        public static bool Initialized { get; private set; }
+        public bool Initialized { get; private set; }
 
 
-        public static void Initialize(string ParameterGrouper = "`", string Separator = " ")
+        public Parser(string ParameterGrouper = "`", string Separator = " ")
         {
-            Parser.Separator = Separator;
+            this.Separator = Separator;
             Grouper = ParameterGrouper;
             Initialized = true;
         }
 
-        public static Return Parse(string Command)
+        public Return Parse(string Command, ExecutionSystem ExecutionSystem)
         {
             List<string> SplitCommand = Command.Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries).
                 ToList<string>();
