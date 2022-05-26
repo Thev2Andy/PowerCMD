@@ -2,26 +2,25 @@
 PowerCMD is a command execution library that can be used as a base for developer consoles, or even [programming languages](https://github.com/Thev2Andy/PowerExec).
 
 # Features
-* Command registry functionality in the `CommandRegistry` class.
+* Command registry functionality in the `Registry` class.
 ```cs
-Registry.RegisterCommand("CMD", new Action<string>(CMDFunc).Method);
-Registry.IsCommandRegistered("CMD");
+Registry.Register("CMD", new Action<string>(CMDFunc).Method);
+Registry.IsRegistered("CMD");
 ```
 
-* Command parsing using the `CommandParser` class.
+* Command parsing using the `Parser` class.
 ```cs
-Parser.InitializeParser("`", " ");
-Parser.ParseCommand("CMD `Hello!`", ExecutionSystem);
+Parser.Parse("CMD `Hello!`", ExecutionSystem);
 ```
 
 * Direct command execution using the `CommandExecutionSystem` class.
 ```cs
-ExecutionSystem.ExecuteCommand("CMD", "Hello!");
+ExecutionSystem.Execute("CMD", "Hello!");
 ```
 
 * Command invocation using a `Command` instance.
 ```cs
-Command CMDInstance = Registry.IsCommandRegistered("CMD");
+Command CMDInstance = Registry.IsRegistered("CMD");
 CMDInstance.Execute("Hello!");
 ```
 
