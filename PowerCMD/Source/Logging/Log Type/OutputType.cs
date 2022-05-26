@@ -8,6 +8,7 @@ namespace PowerCMD
 {
     [Serializable] public enum OutputType
     {
+        Verbose,
         Trace,
         Debug,
         Info,

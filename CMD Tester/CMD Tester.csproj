@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PowerCMD\PowerCMD.csproj" />
+    <ProjectReference Include="..\PowerCMD\PowerCMD.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
