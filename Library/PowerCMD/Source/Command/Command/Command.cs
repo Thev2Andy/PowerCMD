@@ -14,13 +14,6 @@ namespace PowerCMD
         public ParameterInfo[] LogicParameters { get; private set; }
         public bool OutputReturn { get; private set; }
 
-        public Command(string Identifier, MethodInfo Logic, bool OutputReturn) {
-            this.Identifier = Identifier;
-            this.Logic = Logic;
-            this.OutputReturn = OutputReturn;
-
-            this.LogicParameters = Logic.GetParameters();
-        }
 
         public Return Execute(params object[] Parameters) {
             object CommandReturn = null;
@@ -51,6 +44,17 @@ namespace PowerCMD
             }
 
             return new Return(Result.Success, CommandReturn);
+        }
+
+
+
+
+        public Command(string Identifier, MethodInfo Logic, bool OutputReturn) {
+            this.Identifier = Identifier;
+            this.Logic = Logic;
+            this.OutputReturn = OutputReturn;
+
+            this.LogicParameters = Logic.GetParameters();
         }
     }
 }

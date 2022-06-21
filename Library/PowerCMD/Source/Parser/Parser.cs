@@ -10,13 +10,15 @@ namespace PowerCMD
     {
         public string Separator { get; private set; }
         public string Grouper { get; private set; }
+        public string Newline { get; private set; }
 
         public bool Initialized { get; private set; }
 
 
-        public Parser(string ParameterGrouper = "`", string Separator = " ")
+        public Parser(string ParameterGrouper = "`", string Separator = " ", string Newline = "~NL~")
         {
             this.Separator = Separator;
+            this.Newline = Newline;
             Grouper = ParameterGrouper;
             Initialized = true;
         }
@@ -31,18 +33,23 @@ namespace PowerCMD
 
             string ParametersToParse = String.Join(Separator, SplitCommand.ToArray());
 
-            List<object> GroupedParameterList = new List<object>();
+            List<Object> GroupedParameterList = new List<Object>();
             GroupedParameterList = ParametersToParse.Split(Grouper).
-                Select((Element, Index) => ((Index % 2 == 0) ? Element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { Element })).
+                Select((Element, Index) => ((Index % 2 == 0) ? Element.Split(Separator, StringSplitOptions.RemoveEmptyEntries) : new string[] { Element })).
                 SelectMany(Element => Element).
                 ToList().
-                ConvertAll(S => (object)S);
+                ConvertAll(S => (Object)S);
 
-            GroupedParameterList.ForEach((S) => { 
-                if(S.ToString() == $"{Separator}{Separator}") {
-                    S = S.ToString().Replace($"{Separator}{Separator}", String.Empty);
+            for (int i = 0; i < GroupedParameterList.Count; i++)
+            {
+                if (GroupedParameterList[i].ToString().Contains(Newline)) {
+                    GroupedParameterList[i] = GroupedParameterList[i].ToString().Replace(Newline, Environment.NewLine);
                 }
-            });
+
+                if (GroupedParameterList[i].ToString() == $"{Separator}{Separator}") {
+                    GroupedParameterList[i] = GroupedParameterList[i].ToString().Replace($"{Separator}{Separator}", String.Empty);
+                }
+            }
 
             return ExecutionSystem.Execute(CommandString, GroupedParameterList.ToArray());
         }

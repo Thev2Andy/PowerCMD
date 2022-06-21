@@ -14,8 +14,8 @@ namespace CMDTester
 
         static void Main(string[] args)
         {
-            LogSession.Initialize(false);
-            Log.OnLog += OnLog;
+            LogSession.Initialize();
+            Logger.OnLog += OnLog;
 
             Registry = new Registry();
             ExecutionSystem = new ExecutionSystem(Registry);
@@ -58,10 +58,10 @@ namespace CMDTester
             throw new AccessViolationException();
         }
 
-        public static void OnLog(object Sender, LogArgs LogArgs)
+        public static void OnLog(object Sender, LogEventArgs LogArgs)
         {
-            Console.WriteLine($"{((LogArgs.LoggingMode.HasFlag(LogMode.Timestamp)) ? $"[{DateTime.Now.ToString("HH:mm:ss")}] " : "")}" +
-                $"{((LogArgs.LogLevel != LogType.Null) ? $"{LogArgs.LogLevel.ToString()}: " : "")}" +
+            Console.WriteLine($"{((LogArgs.Timestamped) ? $"[{DateTime.Now.ToString("HH:mm:ss")}] " : "")}" +
+                $"{((LogArgs.MessageType != LogType.Null) ? $"{LogArgs.MessageType.ToString()}: " : "")}" +
                 $"{LogArgs.LogMessage}");
         }
 
@@ -77,7 +77,7 @@ namespace CMDTester
                 _ => LogType.Null,
             };
 
-            Log.LogL(OutputArgs.OutputMessage, LogType, LogMode.Default);
+            Logger.Log(OutputArgs.OutputMessage, LogType);
         }
 
         public static void DummyAction(string param, string param2)
