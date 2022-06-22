@@ -15,14 +15,6 @@ namespace PowerCMD
         public bool Initialized { get; private set; }
 
 
-        public Parser(string ParameterGrouper = "`", string Separator = " ", string Newline = "~NL~")
-        {
-            this.Separator = Separator;
-            this.Newline = Newline;
-            Grouper = ParameterGrouper;
-            Initialized = true;
-        }
-
         public Return Parse(string Command, ExecutionSystem ExecutionSystem)
         {
             List<string> SplitCommand = Command.Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries).
@@ -52,6 +44,15 @@ namespace PowerCMD
             }
 
             return ExecutionSystem.Execute(CommandString, GroupedParameterList.ToArray());
+        }
+
+
+
+        public Parser(string ParameterGrouper = "`", string Separator = " ", string Newline = "~NL~") {
+            this.Separator = Separator;
+            this.Newline = Newline;
+            Grouper = ParameterGrouper;
+            Initialized = true;
         }
     }
 }
