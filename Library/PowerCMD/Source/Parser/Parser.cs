@@ -48,7 +48,7 @@ namespace PowerCMD
 
 
 
-        public Parser(string ParameterGrouper = "`", string Separator = " ", string Newline = "~NL~") {
+        public Parser(string ParameterGrouper = "`", string Separator = " ", string Newline = "%NL%") {
             this.Separator = Separator;
             this.Newline = Newline;
             Grouper = ParameterGrouper;
