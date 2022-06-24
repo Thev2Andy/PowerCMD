@@ -19,7 +19,7 @@ namespace PowerCMD
             }
         
             else {
-                Output.Write($"Command '{Identifier}' not found.", OutputType.Error);
+                Output.Write($"Command '{Identifier}' not found.", OutputType.Error, this);
                 return new Return(Result.Fail);
             }
         }

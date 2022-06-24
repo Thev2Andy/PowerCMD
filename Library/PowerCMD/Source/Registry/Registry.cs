@@ -11,20 +11,20 @@ namespace PowerCMD
     {
         public List<Command> Entries = new List<Command>();
 
-        public void Register(string CommandIdentifier, MethodInfo CommandLogic, bool OutputReturn = true)
+        public void Register(string Identifier, MethodInfo CommandLogic, bool OutputReturn = true)
         {
             // Replace whitespaces, to make commands easier to work with.
-            CommandIdentifier.Replace(" ", String.Empty);
+            Identifier.Replace(" ", String.Empty);
 
             for (int i = 0; i < Entries.Count; i++)
             {
-                if (Entries[i].Identifier == CommandIdentifier)
+                if (Entries[i].Identifier == Identifier)
                 {
-                    Output.Write("Command already registered with the exact same identifier.", OutputType.Warning);
+                    Output.Write($"Command `{Identifier}` already registered with the exact same identifier.", OutputType.Warning, this);
                 }
             }
 
-            Command NewCommand = new Command(CommandIdentifier, CommandLogic, OutputReturn);
+            Command NewCommand = new Command(Identifier, CommandLogic, OutputReturn);
             Entries.Add(NewCommand);
         }
 
@@ -41,14 +41,14 @@ namespace PowerCMD
             }
         }
 
-        public Command IsRegistered(string Identifier, bool LogCommandFound = false)
+        public Command IsRegistered(string Identifier, bool LogCommandData = false)
         {
             for (int i = 0; i < Entries.Count; i++)
             {
                 if (Entries[i].Identifier == Identifier)
                 {
-                    if (LogCommandFound) {
-                        Output.Write($"Command '{Identifier}' found with {Entries[i].LogicParameters.Length} required parameter{((Entries[i].LogicParameters.Length != 1) ? "s" : "")}.");
+                    if (LogCommandData) {
+                        Output.Write($"Command '{Identifier}' found with {Entries[i].LogicParameters.Length} required parameter{((Entries[i].LogicParameters.Length != 1) ? "s" : "")}.", OutputType.Info, this);
                     }
                     
                     return Entries[i];
