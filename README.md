@@ -13,7 +13,7 @@ Registry.IsRegistered("CMD");
 Parser.Parse("CMD `Hello!`", ExecutionSystem);
 ```
 
-* Direct command execution using the `CommandExecutionSystem` class.
+* Direct command execution using the `ExecutionSystem` class.
 ```cs
 ExecutionSystem.Execute("CMD", "Hello!");
 ```
