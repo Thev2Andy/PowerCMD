@@ -23,9 +23,11 @@ namespace PowerCMD
 
             catch (Exception Ex) {
                 if (Ex.InnerException != null) {
-                    Output.Write($"An exception occured in the called function.. ({Ex.InnerException.GetType()})", OutputType.Error, Identifier);
-                    Output.Write(Ex.Message, OutputType.Error, Identifier);
-                    Output.Write(Ex.InnerException.Message, OutputType.Error, Identifier);
+                    Output.Write($"An exception of type `{Ex.InnerException.GetType()}` occured in the invoked function..", OutputType.Error, this);
+                    Output.Write(Ex.Message, OutputType.Error, this);
+                    Output.Write(Ex.InnerException.Message, OutputType.Error, this);
+                    Output.Write($"Stacktrace:{Environment.NewLine}{Ex.InnerException.StackTrace}", OutputType.NA, this);
+
                     return new Return(Result.Fail);
                 }
 
@@ -33,14 +35,15 @@ namespace PowerCMD
                     // Handle invalid input handling in the method parameters..
                     string ErrorMessage = Ex.Message;
                     ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {LogicParameters.Length} parameter{((LogicParameters.Length != 1) ? "s" : "")}." : "");
-                    Output.Write(ErrorMessage, OutputType.Error, Identifier);
+                    Output.Write(ErrorMessage, OutputType.Error, this);
+                    
                     return new Return(Result.Fail);
                 }
             }
 
 
             if (OutputReturn && CommandReturn != null) {
-                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", OutputType.NA, Identifier);
+                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", OutputType.NA);
             }
 
             return new Return(Result.Success, CommandReturn);
