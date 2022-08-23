@@ -348,4 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-Library/PowerCMD/PowerCMD/XML Docs/PowerCMD XML.xml
+
+# XML Docs
+Library/PowerCMD/PowerCMD/XML Docs
