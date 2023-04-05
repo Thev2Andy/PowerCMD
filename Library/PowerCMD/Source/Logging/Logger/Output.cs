@@ -10,7 +10,7 @@ namespace PowerCMD
     {
         public static EventHandler<OutputArgs> OnOutput;
 
-        public static void Write(string Message = "", OutputType MessageType = OutputType.Info, object Sender = null)
+        public static void Write(string Message, OutputType MessageType = OutputType.Info, Object Sender = null)
         {
             OutputArgs OutputArgs = new OutputArgs()
             {

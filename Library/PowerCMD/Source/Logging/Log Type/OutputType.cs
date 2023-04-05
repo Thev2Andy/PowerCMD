@@ -11,11 +11,15 @@ namespace PowerCMD
         Verbose,
         Trace,
         Debug,
-        Info,
-        Warning,
-        Error,
         Network,
+        Information,
+        Notice,
+        Warning,
+        Alert,
+        Error,
+        Critical,
+        Emergency,
         Fatal,
-        NA
+        NA,
     }
 }
