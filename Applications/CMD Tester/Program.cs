@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using PowerCMD;
-using PowerLog;
 using System.Threading.Tasks;
+using PowerCMD;
 
 namespace CMDTester
 {
@@ -14,9 +13,6 @@ namespace CMDTester
 
         static void Main(string[] args)
         {
-            LogSession.Initialize();
-            Logger.OnLog += OnLog;
-
             Registry = new Registry();
             ExecutionSystem = new ExecutionSystem(Registry);
             Parser = new Parser();
@@ -58,46 +54,29 @@ namespace CMDTester
             throw new AccessViolationException();
         }
 
-        public static void OnLog(object Sender, LogEventArgs LogArgs)
+        public static void OnOutput(Output.Arguments OutputArguments)
         {
-            Console.WriteLine($"{((LogArgs.Timestamped) ? $"[{DateTime.Now.ToString("HH:mm:ss")}] " : "")}" +
-                $"{((LogArgs.MessageType != LogType.Null) ? $"{LogArgs.MessageType.ToString()}: " : "")}" +
-                $"{LogArgs.LogMessage}");
-        }
-
-        public static void OnOutput(object Sender, OutputArgs OutputArgs)
-        {
-            LogType LogType = OutputArgs.OutputType switch
-            {
-                OutputType.Info => LogType.Info,
-                OutputType.Warning => LogType.Warning,
-                OutputType.Error => LogType.Error,
-                OutputType.Network => LogType.Network,
-                OutputType.NA => LogType.Null,
-                _ => LogType.Null,
-            };
-
-            Logger.Log(OutputArgs.OutputMessage, LogType);
+            Console.WriteLine($"{((OutputArguments.Severity != Output.Severity.Generic) ? $"{OutputArguments.Severity}: " : "")}" + $"{OutputArguments.Message}");
         }
 
         public static void DummyAction(string param, string param2)
         {
-            Output.Write($"{param} x{Convert.ToInt32(param2).ToString()}", OutputType.NA);
+            Output.Write($"{param} x{Convert.ToInt32(param2).ToString()}", Output.Severity.Generic);
         }
 
         public static void Help()
         {
-            Output.Write($"Available commands: ({Registry.Entries.Count})", OutputType.NA);
+            Output.Write($"Available commands: ({Registry.Entries.Count})", Output.Severity.Generic);
 
             for (int i = 0; i < Registry.Entries.Count; i++)
             {
-                Output.Write($"> {Registry.Entries[i].Identifier}", OutputType.NA);
+                Output.Write($"> {Registry.Entries[i].Identifier}", Output.Severity.Generic);
             }
         }
 
         public static void Echo(string Message)
         {
-            Output.Write(Message, OutputType.NA);
+            Output.Write(Message, Output.Severity.Generic);
         }
 
         public static string GetInput()
@@ -112,7 +91,7 @@ namespace CMDTester
 
         public static int Add()
         {
-            Output.Write("Adding 3 + 4..", OutputType.NA);
+            Output.Write("Adding 3 + 4..", Output.Severity.Generic);
             return 3 + 4;
         }
     }

@@ -20,7 +20,7 @@ namespace PowerCMD
             {
                 if (Entries[i].Identifier == Identifier)
                 {
-                    Output.Write($"Command `{Identifier}` already registered with the exact same identifier.", OutputType.Warning, this);
+                    Output.Write($"Command `{Identifier}` already registered with the exact same identifier.", Output.Severity.Warning, this);
                 }
             }
 
@@ -48,7 +48,7 @@ namespace PowerCMD
                 if (Entries[i].Identifier == Identifier)
                 {
                     if (LogCommandData) {
-                        Output.Write($"Command '{Identifier}' found with {Entries[i].LogicParameters.Length} required parameter{((Entries[i].LogicParameters.Length != 1) ? "s" : "")}.", OutputType.Info, this);
+                        Output.Write($"Command '{Identifier}' found with {Entries[i].LogicParameters.Length} required parameter{((Entries[i].LogicParameters.Length != 1) ? "s" : "")}.", Output.Severity.Information, this);
                     }
                     
                     return Entries[i];

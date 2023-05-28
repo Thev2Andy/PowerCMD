@@ -23,10 +23,10 @@ namespace PowerCMD
 
             catch (Exception Ex) {
                 if (Ex.InnerException != null) {
-                    Output.Write($"An exception of type `{Ex.InnerException.GetType()}` occured in the invoked function..", OutputType.Error, this);
-                    Output.Write(Ex.Message, OutputType.Error, this);
-                    Output.Write(Ex.InnerException.Message, OutputType.Error, this);
-                    Output.Write($"Stacktrace:{Environment.NewLine}{Ex.InnerException.StackTrace}", OutputType.NA, this);
+                    Output.Write($"An exception of type `{Ex.InnerException.GetType()}` occured in the invoked function..", Output.Severity.Error, this);
+                    Output.Write(Ex.Message, Output.Severity.Error, this);
+                    Output.Write(Ex.InnerException.Message, Output.Severity.Error, this);
+                    Output.Write($"Stacktrace:{Environment.NewLine}{Ex.InnerException.StackTrace}", Output.Severity.Generic, this);
 
                     return new Return(Result.Fail);
                 }
@@ -35,7 +35,7 @@ namespace PowerCMD
                     // Handle invalid input handling in the method parameters..
                     string ErrorMessage = Ex.Message;
                     ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {LogicParameters.Length} parameter{((LogicParameters.Length != 1) ? "s" : "")}." : "");
-                    Output.Write(ErrorMessage, OutputType.Error, this);
+                    Output.Write(ErrorMessage, Output.Severity.Error, this);
                     
                     return new Return(Result.Fail);
                 }
@@ -43,7 +43,7 @@ namespace PowerCMD
 
 
             if (OutputReturn && CommandReturn != null) {
-                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", OutputType.NA);
+                Output.Write($"Command returned an object of type '{CommandReturn.GetType()}': '{CommandReturn.ToString()}'", Output.Severity.Generic);
             }
 
             return new Return(Result.Success, CommandReturn);

@@ -2,17 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>CMDTester</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Library\PowerCMD\PowerCMD.csproj"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="PowerLog">
-      <HintPath>DLLs\PowerLog.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
