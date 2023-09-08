@@ -15,19 +15,16 @@ namespace PowerCMD
         public bool OutputReturn { get; private set; }
 
 
-        public Return Execute(params object[] Parameters) {
-            object CommandReturn = null;
+        public Return Execute(params Object[] Parameters)
+        {
+            Object CommandReturn = null;
             try {
                 CommandReturn = Logic.Invoke(null, Parameters);
             }
 
             catch (Exception Ex) {
                 if (Ex.InnerException != null) {
-                    Output.Write($"An exception of type `{Ex.InnerException.GetType()}` occured in the invoked function..", Output.Severity.Error, this);
-                    Output.Write(Ex.Message, Output.Severity.Error, this);
                     Output.Write(Ex.InnerException.Message, Output.Severity.Error, this);
-                    Output.Write($"Stacktrace:{Environment.NewLine}{Ex.InnerException.StackTrace}", Output.Severity.Generic, this);
-
                     return new Return(Result.Fail);
                 }
 

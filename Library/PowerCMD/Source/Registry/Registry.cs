@@ -16,9 +16,9 @@ namespace PowerCMD
             // Replace whitespaces, to make commands easier to work with.
             Identifier.Replace(" ", String.Empty);
 
-            for (int i = 0; i < Entries.Count; i++)
+            for (int I = 0; I < Entries.Count; I++)
             {
-                if (Entries[i].Identifier == Identifier)
+                if (Entries[I].Identifier == Identifier)
                 {
                     Output.Write($"Command `{Identifier}` already registered with the exact same identifier.", Output.Severity.Warning, this);
                 }
@@ -33,25 +33,25 @@ namespace PowerCMD
             // Replace whitespaces, to make commands easier to work with.
             Identifier.Replace(" ", String.Empty);
 
-            for (int i = 0; i < Entries.Count; i++)
+            for (int I = 0; I < Entries.Count; I++)
             {
-                if (Entries[i].Identifier == Identifier){
-                    Entries.RemoveAt(i);
+                if (Entries[I].Identifier == Identifier){
+                    Entries.RemoveAt(I);
                 }
             }
         }
 
         public Command IsRegistered(string Identifier, bool LogCommandData = false)
         {
-            for (int i = 0; i < Entries.Count; i++)
+            for (int I = 0; I < Entries.Count; I++)
             {
-                if (Entries[i].Identifier == Identifier)
+                if (Entries[I].Identifier == Identifier)
                 {
                     if (LogCommandData) {
-                        Output.Write($"Command '{Identifier}' found with {Entries[i].LogicParameters.Length} required parameter{((Entries[i].LogicParameters.Length != 1) ? "s" : "")}.", Output.Severity.Information, this);
+                        Output.Write($"Command '{Identifier}' found with {Entries[I].LogicParameters.Length} required parameter{((Entries[I].LogicParameters.Length != 1) ? "s" : "")}.", Output.Severity.Information, this);
                     }
                     
-                    return Entries[i];
+                    return Entries[I];
                 }
             }
 

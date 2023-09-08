@@ -11,7 +11,7 @@ namespace CMDTester
         public static Registry Registry;
         public static Parser Parser;
 
-        static void Main(string[] args)
+        static void Main(string[] Args)
         {
             Registry = new Registry();
             ExecutionSystem = new ExecutionSystem(Registry);
@@ -27,7 +27,7 @@ namespace CMDTester
             Registry.Register("add", new Func<int>(Add).Method);
             Registry.Register("getinput", new Func<string>(GetInput).Method);
             Registry.Register("dummy", new Action<string, string>(DummyAction).Method);
-            Registry.Register("exception", new Action(ExceptionF).Method);
+            Registry.Register("exception", new Action(ThrowException).Method);
 
             CMDInput:
             Console.Write("> ");
@@ -35,57 +35,39 @@ namespace CMDTester
             Console.WriteLine();
 
             goto CMDInput;
-
-            // Registry.IsRegistered("echo", true);
-
-            // Parser.Parse("help");
-            // Parser.Parse("echo hello");
-            // Parser.Parse("echo 'hello world'");
-
-            // ExecutionSystem.Execute("help");
-            // ExecutionSystem.Execute("echo", 3.ToString());
-            // ExecutionSystem.Execute("echo", "Hello and welcome to black mesa research facility.");
-
-            // Console.ReadKey();
         }
 
-        public static void ExceptionF()
-        {
+        public static void ThrowException() {
             throw new AccessViolationException();
         }
 
-        public static void OnOutput(Output.Arguments OutputArguments)
-        {
+        public static void OnOutput(Output.Arguments OutputArguments) {
             Console.WriteLine($"{((OutputArguments.Severity != Output.Severity.Generic) ? $"{OutputArguments.Severity}: " : "")}" + $"{OutputArguments.Message}");
         }
 
-        public static void DummyAction(string param, string param2)
-        {
-            Output.Write($"{param} x{Convert.ToInt32(param2).ToString()}", Output.Severity.Generic);
+        public static void DummyAction(string Parameter, string ParameterTwo) {
+            Output.Write($"{Parameter} x{Convert.ToInt32(ParameterTwo)}", Output.Severity.Generic);
         }
 
         public static void Help()
         {
             Output.Write($"Available commands: ({Registry.Entries.Count})", Output.Severity.Generic);
 
-            for (int i = 0; i < Registry.Entries.Count; i++)
+            for (int I = 0; I < Registry.Entries.Count; I++)
             {
-                Output.Write($"> {Registry.Entries[i].Identifier}", Output.Severity.Generic);
+                Output.Write($"> {Registry.Entries[I].Identifier}", Output.Severity.Generic);
             }
         }
 
-        public static void Echo(string Message)
-        {
+        public static void Echo(string Message) {
             Output.Write(Message, Output.Severity.Generic);
         }
 
-        public static string GetInput()
-        {
+        public static string GetInput() {
             return Console.ReadLine();
         }
 
-        public static void Exit()
-        {
+        public static void Exit() {
             Environment.Exit(0);
         }
 

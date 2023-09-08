@@ -32,14 +32,14 @@ namespace PowerCMD
                 ToList().
                 ConvertAll(S => (Object)S);
 
-            for (int i = 0; i < GroupedParameterList.Count; i++)
+            for (int I = 0; I < GroupedParameterList.Count; I++)
             {
-                if (GroupedParameterList[i].ToString().Contains(Newline)) {
-                    GroupedParameterList[i] = GroupedParameterList[i].ToString().Replace(Newline, Environment.NewLine);
+                if (GroupedParameterList[I].ToString().Contains(Newline)) {
+                    GroupedParameterList[I] = GroupedParameterList[I].ToString().Replace(Newline, Environment.NewLine);
                 }
 
-                if (GroupedParameterList[i].ToString() == $"{Separator}{Separator}") {
-                    GroupedParameterList[i] = GroupedParameterList[i].ToString().Replace($"{Separator}{Separator}", String.Empty);
+                if (GroupedParameterList[I].ToString() == $"{Separator}{Separator}") {
+                    GroupedParameterList[I] = GroupedParameterList[I].ToString().Replace($"{Separator}{Separator}", String.Empty);
                 }
             }
 
