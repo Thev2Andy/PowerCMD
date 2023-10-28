@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    [Serializable] public static class Output
+    public static class Output
     {
         public static Action<Arguments> OnOutput;
 
@@ -23,7 +23,7 @@ namespace PowerCMD
 
 
 
-        [Serializable] public class Arguments : EventArgs {
+        public class Arguments {
             public string Message;
             public Severity Severity;
             public Object Sender;
@@ -31,7 +31,7 @@ namespace PowerCMD
 
 
 
-        [Serializable] public enum Severity
+        public enum Severity
         {
             Verbose,
             Trace,
@@ -39,6 +39,7 @@ namespace PowerCMD
             Information,
             Network,
             Notice,
+            Caution,
             Warning,
             Alert,
             Error,

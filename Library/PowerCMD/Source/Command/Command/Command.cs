@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    [Serializable] public class Command
+    public class Command
     {
         public string Identifier { get; private set; }
         public MethodInfo Logic { get; private set; }

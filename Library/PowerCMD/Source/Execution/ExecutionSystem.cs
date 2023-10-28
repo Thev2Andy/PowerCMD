@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    [Serializable] public class ExecutionSystem
+    public class ExecutionSystem
     {
         public Registry Registry { get; private set; }
 

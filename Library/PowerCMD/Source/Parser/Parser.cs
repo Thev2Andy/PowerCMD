@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    [Serializable] public class Parser
+    public class Parser
     {
         public string Separator { get; private set; }
         public string Grouper { get; private set; }

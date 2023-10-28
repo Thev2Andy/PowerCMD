@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PowerCMD
 {
-    [Serializable] public enum Result
+    public enum Result
     {
         Success,
         Fail
