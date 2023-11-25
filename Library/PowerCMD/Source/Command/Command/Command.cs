@@ -22,16 +22,18 @@ namespace PowerCMD
                 CommandReturn = Logic.Invoke(null, Parameters);
             }
 
-            catch (Exception Ex) {
-                if (Ex.InnerException != null) {
-                    Output.Write(Ex.InnerException.Message, Output.Severity.Error, this);
+            catch (Exception Exception)
+            {
+                if (Exception.InnerException != null) {
+                    Output.Write(Exception.InnerException.Message, Output.Severity.Error, this);
                     return new Return(Result.Fail);
                 }
 
-                else {
+                else
+                {
                     // Handle invalid input handling in the method parameters..
-                    string ErrorMessage = Ex.Message;
-                    ErrorMessage += ((Ex.Message == "Parameter count mismatch.") ? $" Expected {LogicParameters.Length} parameter{((LogicParameters.Length != 1) ? "s" : "")}." : "");
+                    string ErrorMessage = Exception.Message;
+                    ErrorMessage += ((Exception.Message == "Parameter count mismatch.") ? $" Expected {LogicParameters.Length} parameter{((LogicParameters.Length != 1) ? "s" : "")}." : "");
                     Output.Write(ErrorMessage, Output.Severity.Error, this);
                     
                     return new Return(Result.Fail);

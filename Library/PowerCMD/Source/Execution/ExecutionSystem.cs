@@ -10,7 +10,7 @@ namespace PowerCMD
     {
         public Registry Registry { get; private set; }
 
-        public Return Execute(string Identifier, params object[] Parameters)
+        public Return Execute(string Identifier, params Object[] Parameters)
         {
             if (Registry.IsRegistered(Identifier) != null) {
                 Return CommandReturn = (Return)(Registry.IsRegistered(Identifier)?.Execute(Parameters));
