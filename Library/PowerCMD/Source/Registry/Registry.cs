@@ -18,8 +18,7 @@ namespace PowerCMD
 
             for (int I = 0; I < Entries.Count; I++)
             {
-                if (Entries[I].Identifier == Identifier)
-                {
+                if (Entries[I].Identifier == Identifier) {
                     Output.Write($"Command `{Identifier}` already registered with the exact same identifier.", Output.Severity.Warning, this);
                 }
             }
@@ -34,23 +33,18 @@ namespace PowerCMD
 
             for (int I = 0; I < Entries.Count; I++)
             {
-                if (Entries[I].Identifier == Identifier){
+                if (Entries[I].Identifier == Identifier) {
                     Entries.RemoveAt(I);
                 }
             }
         }
 
 
-        public Command IsRegistered(string Identifier, bool LogCommandData = false)
+        public Command IsRegistered(string Identifier)
         {
             for (int I = 0; I < Entries.Count; I++)
             {
-                if (Entries[I].Identifier == Identifier)
-                {
-                    if (LogCommandData) {
-                        Output.Write($"Command '{Identifier}' found with {Entries[I].LogicParameters.Length} required parameter{((Entries[I].LogicParameters.Length != 1) ? "s" : "")}.", Output.Severity.Information, this);
-                    }
-                    
+                if (Entries[I].Identifier == Identifier) {
                     return Entries[I];
                 }
             }

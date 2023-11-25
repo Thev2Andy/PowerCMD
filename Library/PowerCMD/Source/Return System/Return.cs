@@ -8,11 +8,11 @@ namespace PowerCMD
 {
     public struct Return
     {
+        public Object FunctionResult { get; private set; }
         public Result Result { get; private set; }
-        public Object ReturnObject { get; private set; }
 
-        public Return(Result Result, Object ReturnObject = null) {
-            this.ReturnObject = ReturnObject;
+        public Return(Result Result, Object FunctionResult = null) {
+            this.FunctionResult = FunctionResult;
             this.Result = Result;
         }
     }
